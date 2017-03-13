@@ -1,11 +1,11 @@
-﻿using COMP442_Assignment2.Syntactic;
+﻿using COMP442_Assignment3.Syntactic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment2.Tokens
+namespace COMP442_Assignment3.Tokens
 {
     /*
         A producable symbol to represent a terminal symbol

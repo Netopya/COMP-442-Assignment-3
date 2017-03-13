@@ -1,12 +1,12 @@
-﻿using COMP442_Assignment2.Lexical;
-using COMP442_Assignment2.Tokens;
+﻿using COMP442_Assignment3.Lexical;
+using COMP442_Assignment3.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment2.Syntactic
+namespace COMP442_Assignment3.Syntactic
 {
     /*
         This syntactic analyzer is a top-down table

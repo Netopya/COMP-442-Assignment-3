@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment2.Syntactic
+namespace COMP442_Assignment3.Syntactic
 {
     /*
         Class to store the results of a syntactic analysis

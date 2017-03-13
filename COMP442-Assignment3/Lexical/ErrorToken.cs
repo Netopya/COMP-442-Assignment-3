@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment2.Lexical
+namespace COMP442_Assignment3.Lexical
 {
     // A token representing an error
     class ErrorToken : SimpleToken

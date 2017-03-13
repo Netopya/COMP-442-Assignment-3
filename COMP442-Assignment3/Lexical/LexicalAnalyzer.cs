@@ -1,11 +1,11 @@
-﻿using COMP442_Assignment2.Tokens;
+﻿using COMP442_Assignment3.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace COMP442_Assignment2.Lexical
+namespace COMP442_Assignment3.Lexical
 {
     /*
         The lexical analyzer works by using IState classes as
