@@ -1,10 +1,13 @@
 ﻿using COMP442_Assignment3.Lexical;
+using COMP442_Assignment3.SymbolTables.SemanticRecords;
+using COMP442_Assignment3.SymbolTables;
 using COMP442_Assignment3.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using COMP442_Assignment3.SymbolTables.SemanticActions;
 
 namespace COMP442_Assignment3.Syntactic
 {
@@ -257,6 +260,10 @@ namespace COMP442_Assignment3.Syntactic
             // Start enumerating over the list
             tokenEnumerator.MoveNext();
 
+            IToken lastTerminal = null;
+            Stack<SemanticRecord> semanticStack = new Stack<SemanticRecord>();
+            Stack<SymbolTable> symbolTableStack = new Stack<SymbolTable>();
+
             // The table driven algorithm as seen in class slides
             while(parseStack.Peek() != TokenList.EndOfProgram)
             {
@@ -266,6 +273,7 @@ namespace COMP442_Assignment3.Syntactic
                 {
                     if (top == tokenEnumerator.Current.getToken())
                     {
+                        lastTerminal = tokenEnumerator.Current;
                         parseStack.Pop();
                         tokenEnumerator.MoveNext();
                     }
@@ -275,6 +283,10 @@ namespace COMP442_Assignment3.Syntactic
                         results.Errors.Add(string.Format("Error Parsing terminal: Expecting {0}, got {1} at token {2}. {3}", top.getProductName(), tokenEnumerator.Current.getToken().getProductName(), tokenEnumerator.Current.getName(), resumeMessage));
                     }
                         
+                }
+                else if(top is SemanticAction)
+                {
+
                 }
                 else
                 {
