@@ -12,7 +12,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
     {
         public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
-            throw new NotImplementedException();
+            semanticRecordTable.Push(new SemanticRecord(RecordTypes.TypeName, lastToken.getSemanticName()));
         }
 
         public override string getProductName()

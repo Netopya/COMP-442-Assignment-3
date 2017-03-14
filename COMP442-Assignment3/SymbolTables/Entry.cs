@@ -31,11 +31,20 @@ namespace COMP442_Assignment3.SymbolTables
 
         public abstract SymbolTable getChild();
 
+        public abstract string getType();
+
         public void printTable(int tabs, StringBuilder sb)
         {
             sb.Append(new String('\t', tabs));
 
             sb.AppendFormat("name: {0}, kind: {1}", name, kind.ToString());
+
+            string type = getType();
+
+            if(type != string.Empty)
+            {
+                sb.AppendFormat(", type: {0}", type);
+            }
 
             sb.AppendLine();
 

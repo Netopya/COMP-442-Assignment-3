@@ -10,6 +10,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
     class CloseTable : SemanticAction
     {
+        // Close a table and move to the parent table in the symbol table tree
         public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
             symbolTable.Pop();

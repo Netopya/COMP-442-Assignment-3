@@ -41,7 +41,7 @@ namespace COMP442_Assignment3.SymbolTables
             foreach(var entry in entries)
             {
                 //sb.Append(new String('\t', tabs + 1));
-                entry.printTable(tabs + 1, sb);
+                entry.printTable(tabs, sb);
             }
         }
     }

@@ -59,6 +59,7 @@ namespace COMP442_Assignment3.Lexical
             return _line;
         }
 
+        // Name to be used by the semantic analyzer
         public string getSemanticName()
         {
             return _showContent ? _content : _token.getName();

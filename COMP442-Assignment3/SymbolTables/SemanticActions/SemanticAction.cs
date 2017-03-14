@@ -16,7 +16,8 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
 
         public List<Token> getFirstSet()
         {
-            throw new NotImplementedException();
+            // Nothing leads to a semantic action
+            return new List<Token> { TokenList.Epsilon };
         }
 
         public List<Token> getFollowSet()

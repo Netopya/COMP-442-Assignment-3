@@ -95,6 +95,8 @@ namespace COMP442_Assignment3.Syntactic
 
             SemanticAction makeProgramTable = new MakeProgramTable();
             SemanticAction closeTable = new CloseTable();
+            SemanticAction addTypeToList = new AddTypeToList();
+            SemanticAction makeFuncTable = new MakeFunctionTable();
 
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
@@ -102,10 +104,10 @@ namespace COMP442_Assignment3.Syntactic
                 TokenList.Class, TokenList.Identifier, TokenList.OpenCurlyBracket, varFuncList, TokenList.CloseCurlyBracket, TokenList.SemiColon, classDecl
             }); // classDecl -> class id { varFuncList } ; classDecl
             Rule r3 = new Rule(classDecl); // classDecl -> EPSILON
-            Rule r4 = new Rule(varFuncList, new List<IProduceable> { type, TokenList.Identifier, varFunc, varFuncList}); // varFuncList->type id varFunc varFuncList
+            Rule r4 = new Rule(varFuncList, new List<IProduceable> { type, addTypeToList ,TokenList.Identifier, varFunc, varFuncList}); // varFuncList->type id varFunc varFuncList
             Rule r5 = new Rule(varFuncList); // varFuncList -> EPSILON
             Rule r6 = new Rule(varFunc, new List<IProduceable> { varDecl }); // varFunc-> varDecl
-            Rule r7 = new Rule(varFunc, new List<IProduceable> { funcDef }); // varFunc-> funcDef
+            Rule r7 = new Rule(varFunc, new List<IProduceable> { makeFuncTable, funcDef, closeTable }); // varFunc-> funcDef
             Rule r8 = new Rule(progBody, new List<IProduceable> { TokenList.Program, makeProgramTable, funcBody, closeTable, TokenList.SemiColon, funcList }); //progBody -> program funcBody ; funcList
             Rule r9 = new Rule(funcList, new List<IProduceable> { type, TokenList.Identifier, funcDef, funcList}); //funcList -> type id funcDef funcList 
             Rule r10 = new Rule(funcList); // funcList -> EPSILON

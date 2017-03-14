@@ -15,7 +15,11 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
 
     public class SemanticRecord
     {
-        RecordTypes recordType;
+        public RecordTypes recordType
+        {
+            get; set;
+        }
+
         string value;
 
         public SemanticRecord(RecordTypes recordType, string value)
@@ -23,6 +27,12 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
             this.recordType = recordType;
             this.value = value;
         }
+
+        public string getValue()
+        {
+            return value;
+        }
+      
     }
 
 }

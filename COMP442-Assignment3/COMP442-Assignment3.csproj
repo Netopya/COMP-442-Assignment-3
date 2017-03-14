@@ -67,8 +67,10 @@
     <Compile Include="Lexical\SimpleToken.cs" />
     <Compile Include="SymbolTables\Entry.cs" />
     <Compile Include="SymbolTables\FunctionEntry.cs" />
+    <Compile Include="SymbolTables\SemanticActions\AddTypeToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\CloseTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeFunctionTable.cs" />
+    <Compile Include="SymbolTables\SemanticActions\MakeProgramTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\SemanticAction.cs" />
     <Compile Include="SymbolTables\SemanticRecords\SemanticRecord.cs" />
     <Compile Include="SymbolTables\SymbolTable.cs" />
