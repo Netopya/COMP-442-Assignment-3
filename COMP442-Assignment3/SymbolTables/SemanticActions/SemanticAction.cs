@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using COMP442_Assignment3.Tokens;
 using COMP442_Assignment3.SymbolTables.SemanticRecords;
+using COMP442_Assignment3.Lexical;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
     public abstract class SemanticAction : IProduceable
     {
-        public abstract void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, Token lastToken);
+        public abstract void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken);
 
         public List<Token> getFirstSet()
         {

@@ -65,11 +65,12 @@
     <Compile Include="Lexical\SimpleFinalState.cs" />
     <Compile Include="Lexical\SimpleIntermediateState.cs" />
     <Compile Include="Lexical\SimpleToken.cs" />
-    <Compile Include="SymbolTable\Entry.cs" />
-    <Compile Include="SymbolTable\SemanticActions\MakeProgramTable.cs" />
-    <Compile Include="SymbolTable\SemanticActions\SemanticAction.cs" />
-    <Compile Include="SymbolTable\SemanticRecords\SemanticRecord.cs" />
-    <Compile Include="SymbolTable\SymbolTable.cs" />
+    <Compile Include="SymbolTables\Entry.cs" />
+    <Compile Include="SymbolTables\FunctionEntry.cs" />
+    <Compile Include="SymbolTables\SemanticActions\MakeProgramTable.cs" />
+    <Compile Include="SymbolTables\SemanticActions\SemanticAction.cs" />
+    <Compile Include="SymbolTables\SemanticRecords\SemanticRecord.cs" />
+    <Compile Include="SymbolTables\SymbolTable.cs" />
     <Compile Include="Syntactic\IProduceable.cs" />
     <Compile Include="Syntactic\Production.cs" />
     <Compile Include="Syntactic\Rule.cs" />

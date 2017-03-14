@@ -286,6 +286,9 @@ namespace COMP442_Assignment3.Syntactic
                 }
                 else if(top is SemanticAction)
                 {
+                    parseStack.Pop();
+                    SemanticAction action = (SemanticAction)top;
+                    action.ExecuteSemanticAction(semanticStack, symbolTableStack, lastTerminal);
 
                 }
                 else

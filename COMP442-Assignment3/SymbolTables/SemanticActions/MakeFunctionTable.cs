@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using COMP442_Assignment3.SymbolTables;
 using COMP442_Assignment3.SymbolTables.SemanticRecords;
 using COMP442_Assignment3.Tokens;
+using COMP442_Assignment3.Lexical;
 
-namespace COMP442_Assignment3.SymbolTable.SemanticActions
+namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
-    public class MakeProgramTable : SemanticAction
+    public class MakeFunctionTable : SemanticAction
     {
-        public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTables.SymbolTable> symbolTable, Token lastToken)
+        public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTables.SymbolTable> symbolTable, IToken lastToken)
         {
             
         }
