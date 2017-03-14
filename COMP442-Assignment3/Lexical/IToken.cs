@@ -18,5 +18,6 @@ namespace COMP442_Assignment3.Lexical
         bool isError();
         Token getToken();
         int getLine();
+        string getSemanticName();
     }
 }

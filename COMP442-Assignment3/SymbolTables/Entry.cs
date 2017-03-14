@@ -18,15 +18,28 @@ namespace COMP442_Assignment3.SymbolTables
     {
         bool declared;
 
-        SymbolTable child;
         SymbolTable parent;
         EntryKinds kind;
+        string name;
 
-        public Entry(SymbolTable parent, EntryKinds kind)
+        public Entry(SymbolTable parent, EntryKinds kind, string name)
         {
             this.parent = parent;
             this.kind = kind;
+            this.name = name;
         }
 
+        public abstract SymbolTable getChild();
+
+        public void printTable(int tabs, StringBuilder sb)
+        {
+            sb.Append(new String('\t', tabs));
+
+            sb.AppendFormat("name: {0}, kind: {1}", name, kind.ToString());
+
+            sb.AppendLine();
+
+            getChild().printTable(tabs + 1, sb);
+        }
     }
 }

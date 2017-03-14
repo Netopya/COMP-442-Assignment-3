@@ -11,11 +11,16 @@ using COMP442_Assignment3.Lexical;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
-    public class MakeFunctionTable : SemanticAction
+    public class MakeProgramTable : SemanticAction
     {
-        public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTables.SymbolTable> symbolTable, IToken lastToken)
+        public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
-            
+            SymbolTable currentTable = symbolTable.Peek();
+
+            Entry funcEntry = new FunctionEntry(currentTable, lastToken.getSemanticName());
+            currentTable.AddEntry(funcEntry);
+
+            symbolTable.Push(funcEntry.getChild());
         }
 
         public override string getProductName()

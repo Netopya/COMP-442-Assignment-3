@@ -8,8 +8,8 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
 {
     public enum RecordTypes
     {
-        Id,
-        Name,
+        TypeName,
+        IdName,
         Size
     }
 
@@ -21,6 +21,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
         public SemanticRecord(RecordTypes recordType, string value)
         {
             this.recordType = recordType;
+            this.value = value;
         }
     }
 

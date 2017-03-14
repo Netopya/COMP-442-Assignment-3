@@ -58,5 +58,10 @@ namespace COMP442_Assignment3.Lexical
         {
             return _line;
         }
+
+        public string getSemanticName()
+        {
+            return _showContent ? _content : _token.getName();
+        }
     }
 }

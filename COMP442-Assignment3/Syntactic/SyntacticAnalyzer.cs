@@ -93,6 +93,9 @@ namespace COMP442_Assignment3.Syntactic
             // The start production of this grammar
             startProduct = prog;
 
+            SemanticAction makeProgramTable = new MakeProgramTable();
+            SemanticAction closeTable = new CloseTable();
+
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
             Rule r2 = new Rule(classDecl, new List<IProduceable> {
@@ -103,7 +106,7 @@ namespace COMP442_Assignment3.Syntactic
             Rule r5 = new Rule(varFuncList); // varFuncList -> EPSILON
             Rule r6 = new Rule(varFunc, new List<IProduceable> { varDecl }); // varFunc-> varDecl
             Rule r7 = new Rule(varFunc, new List<IProduceable> { funcDef }); // varFunc-> funcDef
-            Rule r8 = new Rule(progBody, new List<IProduceable> { TokenList.Program, funcBody, TokenList.SemiColon, funcList }); //progBody -> program funcBody ; funcList
+            Rule r8 = new Rule(progBody, new List<IProduceable> { TokenList.Program, makeProgramTable, funcBody, closeTable, TokenList.SemiColon, funcList }); //progBody -> program funcBody ; funcList
             Rule r9 = new Rule(funcList, new List<IProduceable> { type, TokenList.Identifier, funcDef, funcList}); //funcList -> type id funcDef funcList 
             Rule r10 = new Rule(funcList); // funcList -> EPSILON
             Rule r11 = new Rule(funcDef, new List<IProduceable> { TokenList.OpenParanthesis, fParams, TokenList.CloseParanthesis, funcBody, TokenList.SemiColon}); //funcDef -> ( fParams ) funcBody ;
@@ -263,6 +266,8 @@ namespace COMP442_Assignment3.Syntactic
             IToken lastTerminal = null;
             Stack<SemanticRecord> semanticStack = new Stack<SemanticRecord>();
             Stack<SymbolTable> symbolTableStack = new Stack<SymbolTable>();
+            SymbolTable global = new SymbolTable("Global");
+            symbolTableStack.Push(global);
 
             // The table driven algorithm as seen in class slides
             while(parseStack.Peek() != TokenList.EndOfProgram)
@@ -318,6 +323,8 @@ namespace COMP442_Assignment3.Syntactic
                 // Add the current state of the stack to the derivation list
                 results.Derivation.Add(new List<IProduceable>(parseStack));
             }
+
+            Console.Write(global.printTable());
 
             return results;
         }

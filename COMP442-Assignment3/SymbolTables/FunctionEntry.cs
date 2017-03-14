@@ -8,9 +8,17 @@ namespace COMP442_Assignment3.SymbolTables
 {
     public class FunctionEntry : Entry
     {
-        public FunctionEntry(SymbolTable parent) : base(parent, EntryKinds.function)
-        {
+        SymbolTable child;
 
+        public FunctionEntry(SymbolTable parent, string name) : base(parent, EntryKinds.function, name)
+        {
+            child = new SymbolTable("Function: " + name);
         }
+
+        public override SymbolTable getChild()
+        {
+            return child;
+        }
+        
     }
 }
