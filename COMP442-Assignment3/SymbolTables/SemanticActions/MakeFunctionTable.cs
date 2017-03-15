@@ -14,17 +14,36 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
         {
             SymbolTable currentTable = symbolTable.Peek();
 
-            SemanticRecord typeRecord = semanticRecordTable.Pop();
+            //SemanticRecord typeRecord = semanticRecordTable.Pop();
 
-            if(typeRecord.recordType != RecordTypes.TypeName)
+            LinkedList<Variable> foundParameters = new LinkedList<Variable>();
+
+            bool entryCreated = false;
+
+            while(!entryCreated)
             {
-                // This should only fail if there is an error in the grammar.
-                Console.WriteLine("Grammar error, parsed rule that placed unexpected character on semantic stack");
+                SemanticRecord topRecord = semanticRecordTable.Pop();
+
+                switch(topRecord.recordType)
+                {
+                    case RecordTypes.Variable:
+                        foundParameters.AddFirst(topRecord.getVariable());
+                        break;
+                    case RecordTypes.TypeName:
+                        FunctionEntry funcEntry = new FunctionEntry(currentTable, lastToken.getSemanticName(), topRecord.getValue());
+                        funcEntry.AddParameters(foundParameters);
+
+                        symbolTable.Push(funcEntry.getChild());
+
+                        entryCreated = true;
+
+                        break;
+                    default:
+                        // This should only fail if there is an error in the grammar.
+                        Console.WriteLine("Grammar error, parsed rule that placed unexpected character on semantic stack");
+                        break;
+                }
             }
-
-            Entry funcEntry = new FunctionEntry(currentTable, lastToken.getSemanticName(), typeRecord.getValue());
-
-            symbolTable.Push(funcEntry.getChild());
         }
 
         public override string getProductName()

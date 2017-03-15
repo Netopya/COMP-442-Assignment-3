@@ -55,5 +55,10 @@ namespace COMP442_Assignment3.SymbolTables
             if(getChild() != null)
                 getChild().printTable(tabs + 1, sb);
         }
+
+        protected SymbolTable getParent()
+        {
+            return parent;
+        }
     }
 }

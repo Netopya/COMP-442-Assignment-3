@@ -112,11 +112,11 @@ namespace COMP442_Assignment3.Syntactic
             Rule r4 = new Rule(varFuncList, new List<IProduceable> { type, addTypeToList ,TokenList.Identifier, varFunc, varFuncList}); // varFuncList->type id varFunc varFuncList
             Rule r5 = new Rule(varFuncList); // varFuncList -> EPSILON
             Rule r6 = new Rule(varFunc, new List<IProduceable> { addIdToList, varDecl, migrateVariableToList, makeVariable }); // varFunc-> varDecl
-            Rule r7 = new Rule(varFunc, new List<IProduceable> { makeFuncTable, funcDef, closeTable }); // varFunc-> funcDef
+            Rule r7 = new Rule(varFunc, new List<IProduceable> { funcDef, closeTable }); // varFunc-> funcDef
             Rule r8 = new Rule(progBody, new List<IProduceable> { TokenList.Program, makeProgramTable, funcBody, closeTable, TokenList.SemiColon, funcList }); //progBody -> program funcBody ; funcList
-            Rule r9 = new Rule(funcList, new List<IProduceable> { type, TokenList.Identifier, funcDef, funcList}); //funcList -> type id funcDef funcList 
+            Rule r9 = new Rule(funcList, new List<IProduceable> { type, addTypeToList, TokenList.Identifier, funcDef, closeTable, funcList}); //funcList -> type id funcDef funcList 
             Rule r10 = new Rule(funcList); // funcList -> EPSILON
-            Rule r11 = new Rule(funcDef, new List<IProduceable> { TokenList.OpenParanthesis, fParams, TokenList.CloseParanthesis, funcBody, TokenList.SemiColon}); //funcDef -> ( fParams ) funcBody ;
+            Rule r11 = new Rule(funcDef, new List<IProduceable> { TokenList.OpenParanthesis, fParams, makeFuncTable, TokenList.CloseParanthesis, funcBody, TokenList.SemiColon}); //funcDef -> ( fParams ) funcBody ;
             Rule r12 = new Rule(funcBody, new List<IProduceable> { TokenList.OpenCurlyBracket, funcBodyList, TokenList.CloseCurlyBracket}); //funcBody -> { funcBodyList }
             Rule r13 = new Rule(funcBodyList, new List<IProduceable> { TokenList.IntRes, ntypeFuncBodyList}); //funcBodyList -> intRes ntypeFuncBodyList
             Rule r14 = new Rule(funcBodyList, new List<IProduceable> { TokenList.FloatRes, ntypeFuncBodyList }); //funcBodyList -> floatRes ntypeFuncBodyList
@@ -134,8 +134,8 @@ namespace COMP442_Assignment3.Syntactic
                 TokenList.If, TokenList.OpenParanthesis, expr, TokenList.CloseParanthesis, TokenList.Then, statBlock, TokenList.Else, statBlock, TokenList.SemiColon
             }); // statement ->  if ( expr ) then statBlock else statBlock ;
             Rule r25 = new Rule(statement, new List<IProduceable> {
-                TokenList.For, TokenList.OpenParanthesis, type, TokenList.Identifier, assignOp, expr, TokenList.SemiColon, arithExpr, relExpr, TokenList.SemiColon,
-                TokenList.Identifier, assignStat, TokenList.CloseParanthesis, statBlock, TokenList.SemiColon
+                TokenList.For, TokenList.OpenParanthesis, type, addTypeToList, TokenList.Identifier, addIdToList, migrateVariableToList, makeVariable, assignOp,
+                expr, TokenList.SemiColon, arithExpr, relExpr, TokenList.SemiColon, TokenList.Identifier, assignStat, TokenList.CloseParanthesis, statBlock, TokenList.SemiColon
             }); // statement -> for ( type id assignOp expr ; relExpr ; id assignStat ) statBlock ;
             Rule r26 = new Rule(statement, new List<IProduceable> {
                 TokenList.Get, TokenList.OpenParanthesis, TokenList.Identifier, variable, TokenList.CloseParanthesis, TokenList.SemiColon
@@ -182,11 +182,11 @@ namespace COMP442_Assignment3.Syntactic
             Rule r66 = new Rule(type, new List<IProduceable> { TokenList.IntRes}); // type -> intRes
             Rule r67 = new Rule(type, new List<IProduceable> { TokenList.FloatRes }); // type -> floatRes
             Rule r68 = new Rule(type, new List<IProduceable> { TokenList.Identifier }); // type -> id
-            Rule r69 = new Rule(fParams, new List<IProduceable> { type, TokenList.Identifier, arraySizeList, fParamsTail}); // fParams -> type id arraySizeList fParamsTail
+            Rule r69 = new Rule(fParams, new List<IProduceable> { type, addTypeToList, TokenList.Identifier, addIdToList, arraySizeList, migrateVariableToList, fParamsTail}); // fParams -> type id arraySizeList fParamsTail
             Rule r70 = new Rule(fParams); // fParams -> EPSILON
             Rule r71 = new Rule(aParams, new List<IProduceable> { expr, aParamsTail}); // aParams -> expr aParamsTail
             Rule r72 = new Rule(aParams); // aParams -> EPSILON
-            Rule r73 = new Rule(fParamsTail, new List<IProduceable> { TokenList.Comma, type, TokenList.Identifier, arraySizeList, fParamsTail}); // fParamsTail -> , type id arraySizeList fParamsTail
+            Rule r73 = new Rule(fParamsTail, new List<IProduceable> { TokenList.Comma, type, addTypeToList, TokenList.Identifier, addIdToList, arraySizeList, migrateVariableToList, fParamsTail}); // fParamsTail -> , type id arraySizeList fParamsTail
             Rule r74 = new Rule(fParamsTail); // fParamsTail  -> EPSILON
             Rule r75 = new Rule(aParamsTail, new List<IProduceable> { TokenList.Comma, expr, aParamsTail}); // aParamsTail -> , expr aParamsTail
             Rule r76 = new Rule(aParamsTail); // aParamsTail  -> EPSILON

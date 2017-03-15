@@ -22,6 +22,11 @@ namespace COMP442_Assignment3.SymbolTables
             entries.Add(entry);
         }
 
+        public void AddEntryRange(IEnumerable<Entry> entries)
+        {
+            this.entries.AddRange(entries);
+        }
+
         public string printTable()
         {
             StringBuilder sb = new StringBuilder();
