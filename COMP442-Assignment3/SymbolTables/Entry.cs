@@ -52,7 +52,8 @@ namespace COMP442_Assignment3.SymbolTables
 
             sb.AppendLine();
 
-            getChild().printTable(tabs + 1, sb);
+            if(getChild() != null)
+                getChild().printTable(tabs + 1, sb);
         }
     }
 }

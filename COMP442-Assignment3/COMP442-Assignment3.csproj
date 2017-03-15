@@ -69,11 +69,15 @@
     <Compile Include="SymbolTables\Entry.cs" />
     <Compile Include="SymbolTables\FunctionEntry.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddIdToList.cs" />
+    <Compile Include="SymbolTables\SemanticActions\AddSizeToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddTypeToList.cs" />
+    <Compile Include="SymbolTables\SemanticActions\MakeVariableTable.cs" />
+    <Compile Include="SymbolTables\VarParamEntry.cs" />
     <Compile Include="SymbolTables\SemanticActions\CloseTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeClassTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeFunctionTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeProgramTable.cs" />
+    <Compile Include="SymbolTables\SemanticActions\MigrateVariableToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\SemanticAction.cs" />
     <Compile Include="SymbolTables\SemanticRecords\SemanticRecord.cs" />
     <Compile Include="SymbolTables\SymbolTable.cs" />

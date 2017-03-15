@@ -98,6 +98,10 @@ namespace COMP442_Assignment3.Syntactic
             SemanticAction addTypeToList = new AddTypeToList();
             SemanticAction makeFuncTable = new MakeFunctionTable();
             SemanticAction makeClassTable = new MakeClassTable();
+            SemanticAction addIdToList = new AddIdToList();
+            SemanticAction migrateVariableToList = new MigrateVariableToList();
+            SemanticAction makeVariable = new MakeVariableTable();
+            SemanticAction addSizeToList = new AddSizeToList();
 
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
@@ -107,7 +111,7 @@ namespace COMP442_Assignment3.Syntactic
             Rule r3 = new Rule(classDecl); // classDecl -> EPSILON
             Rule r4 = new Rule(varFuncList, new List<IProduceable> { type, addTypeToList ,TokenList.Identifier, varFunc, varFuncList}); // varFuncList->type id varFunc varFuncList
             Rule r5 = new Rule(varFuncList); // varFuncList -> EPSILON
-            Rule r6 = new Rule(varFunc, new List<IProduceable> { varDecl }); // varFunc-> varDecl
+            Rule r6 = new Rule(varFunc, new List<IProduceable> { addIdToList, varDecl, migrateVariableToList, makeVariable }); // varFunc-> varDecl
             Rule r7 = new Rule(varFunc, new List<IProduceable> { makeFuncTable, funcDef, closeTable }); // varFunc-> funcDef
             Rule r8 = new Rule(progBody, new List<IProduceable> { TokenList.Program, makeProgramTable, funcBody, closeTable, TokenList.SemiColon, funcList }); //progBody -> program funcBody ; funcList
             Rule r9 = new Rule(funcList, new List<IProduceable> { type, TokenList.Identifier, funcDef, funcList}); //funcList -> type id funcDef funcList 
@@ -174,7 +178,7 @@ namespace COMP442_Assignment3.Syntactic
             Rule r62 = new Rule(indiceList, new List<IProduceable> { indice, indiceList}); // indiceList -> indice indiceList
             Rule r63 = new Rule(indiceList); // indiceList -> EPSILON
             Rule r64 = new Rule(indice, new List<IProduceable> { TokenList.OpenSquareBracket, arithExpr, TokenList.CloseSquareBracket }); // indice -> [ arithExpr ]
-            Rule r65 = new Rule(arraySize, new List<IProduceable> { TokenList.OpenSquareBracket, TokenList.Integer, TokenList.CloseSquareBracket}); // arraySize -> [ integer ]
+            Rule r65 = new Rule(arraySize, new List<IProduceable> { TokenList.OpenSquareBracket, TokenList.Integer, addSizeToList, TokenList.CloseSquareBracket}); // arraySize -> [ integer ]
             Rule r66 = new Rule(type, new List<IProduceable> { TokenList.IntRes}); // type -> intRes
             Rule r67 = new Rule(type, new List<IProduceable> { TokenList.FloatRes }); // type -> floatRes
             Rule r68 = new Rule(type, new List<IProduceable> { TokenList.Identifier }); // type -> id
