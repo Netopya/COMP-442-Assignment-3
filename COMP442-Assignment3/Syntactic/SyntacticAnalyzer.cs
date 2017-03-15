@@ -102,7 +102,7 @@ namespace COMP442_Assignment3.Syntactic
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody
             Rule r2 = new Rule(classDecl, new List<IProduceable> {
-                TokenList.Class, TokenList.Identifier, TokenList.OpenCurlyBracket, varFuncList, TokenList.CloseCurlyBracket, TokenList.SemiColon, classDecl
+                TokenList.Class, TokenList.Identifier, makeClassTable, TokenList.OpenCurlyBracket, varFuncList, TokenList.CloseCurlyBracket, TokenList.SemiColon, closeTable, classDecl
             }); // classDecl -> class id { varFuncList } ; classDecl
             Rule r3 = new Rule(classDecl); // classDecl -> EPSILON
             Rule r4 = new Rule(varFuncList, new List<IProduceable> { type, addTypeToList ,TokenList.Identifier, varFunc, varFuncList}); // varFuncList->type id varFunc varFuncList
