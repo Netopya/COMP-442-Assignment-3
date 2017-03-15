@@ -68,6 +68,7 @@
     <Compile Include="SymbolTables\ClassEntry.cs" />
     <Compile Include="SymbolTables\Entry.cs" />
     <Compile Include="SymbolTables\FunctionEntry.cs" />
+    <Compile Include="SymbolTables\SemanticActions\AddIdToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\AddTypeToList.cs" />
     <Compile Include="SymbolTables\SemanticActions\CloseTable.cs" />
     <Compile Include="SymbolTables\SemanticActions\MakeClassTable.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="SymbolTables\SemanticActions\SemanticAction.cs" />
     <Compile Include="SymbolTables\SemanticRecords\SemanticRecord.cs" />
     <Compile Include="SymbolTables\SymbolTable.cs" />
+    <Compile Include="SymbolTables\Variable.cs" />
     <Compile Include="Syntactic\IProduceable.cs" />
     <Compile Include="Syntactic\Production.cs" />
     <Compile Include="Syntactic\Rule.cs" />

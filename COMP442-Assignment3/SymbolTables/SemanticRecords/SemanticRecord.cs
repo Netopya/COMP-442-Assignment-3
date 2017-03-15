@@ -10,7 +10,8 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
     {
         TypeName,
         IdName,
-        Size
+        Size,
+        Variable
     }
 
     public class SemanticRecord
@@ -21,6 +22,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
         }
 
         string value;
+        Variable variable;
 
         public SemanticRecord(RecordTypes recordType, string value)
         {
@@ -28,11 +30,21 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
             this.value = value;
         }
 
+        public SemanticRecord(Variable variable)
+        {
+            this.variable = variable;
+            this.recordType = RecordTypes.Variable;
+        }
+
         public string getValue()
         {
             return value;
         }
       
+        public Variable getVariable()
+        {
+            return variable;
+        }
     }
 
 }
