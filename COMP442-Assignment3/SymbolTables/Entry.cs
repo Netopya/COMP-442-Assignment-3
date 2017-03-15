@@ -25,6 +25,10 @@ namespace COMP442_Assignment3.SymbolTables
         public Entry(SymbolTable parent, EntryKinds kind, string name)
         {
             this.parent = parent;
+
+            // Establish a two-way link in the tree
+            parent.AddEntry(this);
+
             this.kind = kind;
             this.name = name;
         }

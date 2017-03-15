@@ -33,8 +33,6 @@ namespace COMP442_Assignment3.SymbolTables
 
         public void printTable(int tabs, StringBuilder sb)
         {
-            
-
             sb.Append(new String('\t', tabs));
             sb.AppendLine(name);
 

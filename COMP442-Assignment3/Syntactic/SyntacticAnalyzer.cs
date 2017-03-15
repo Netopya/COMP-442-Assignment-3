@@ -97,6 +97,7 @@ namespace COMP442_Assignment3.Syntactic
             SemanticAction closeTable = new CloseTable();
             SemanticAction addTypeToList = new AddTypeToList();
             SemanticAction makeFuncTable = new MakeFunctionTable();
+            SemanticAction makeClassTable = new MakeClassTable();
 
             // All the rules defined in the grammar
             Rule r1 = new Rule(prog, new List<IProduceable> { classDecl, progBody }); // prog -> classDecl progBody

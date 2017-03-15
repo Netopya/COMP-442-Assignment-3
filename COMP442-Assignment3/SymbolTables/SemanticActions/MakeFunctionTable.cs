@@ -23,7 +23,6 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
             }
 
             Entry funcEntry = new FunctionEntry(currentTable, lastToken.getSemanticName(), typeRecord.getValue());
-            currentTable.AddEntry(funcEntry);
 
             symbolTable.Push(funcEntry.getChild());
         }
