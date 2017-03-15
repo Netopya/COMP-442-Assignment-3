@@ -19,6 +19,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
             LinkedList<Variable> foundParameters = new LinkedList<Variable>();
 
             bool entryCreated = false;
+            string funcName = string.Empty;
 
             while(!entryCreated)
             {
@@ -29,8 +30,11 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
                     case RecordTypes.Variable:
                         foundParameters.AddFirst(topRecord.getVariable());
                         break;
+                    case RecordTypes.IdName:
+                        funcName = topRecord.getValue();
+                        break;
                     case RecordTypes.TypeName:
-                        FunctionEntry funcEntry = new FunctionEntry(currentTable, lastToken.getSemanticName(), topRecord.getValue());
+                        FunctionEntry funcEntry = new FunctionEntry(currentTable, funcName, topRecord.getValue());
                         funcEntry.AddParameters(foundParameters);
 
                         symbolTable.Push(funcEntry.getChild());

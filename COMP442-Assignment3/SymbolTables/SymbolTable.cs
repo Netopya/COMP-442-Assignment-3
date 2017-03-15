@@ -22,9 +22,9 @@ namespace COMP442_Assignment3.SymbolTables
             entries.Add(entry);
         }
 
-        public void AddEntryRange(IEnumerable<Entry> entries)
+        public List<Entry> GetEntries()
         {
-            this.entries.AddRange(entries);
+            return entries;
         }
 
         public string printTable()

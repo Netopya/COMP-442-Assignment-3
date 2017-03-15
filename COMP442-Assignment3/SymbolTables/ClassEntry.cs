@@ -12,7 +12,7 @@ namespace COMP442_Assignment3.SymbolTables
 
         public ClassEntry(string name, SymbolTable parent) : base(parent, EntryKinds.classKind, name)
         {
-            child = new SymbolTable("Class: " + name);
+            child = new SymbolTable("Class Symbol Table: " + name);
         }
 
         public override SymbolTable getChild()

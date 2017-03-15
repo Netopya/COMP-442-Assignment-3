@@ -109,12 +109,12 @@ namespace COMP442_Assignment3.Syntactic
                 TokenList.Class, TokenList.Identifier, makeClassTable, TokenList.OpenCurlyBracket, varFuncList, TokenList.CloseCurlyBracket, TokenList.SemiColon, closeTable, classDecl
             }); // classDecl -> class id { varFuncList } ; classDecl
             Rule r3 = new Rule(classDecl); // classDecl -> EPSILON
-            Rule r4 = new Rule(varFuncList, new List<IProduceable> { type, addTypeToList ,TokenList.Identifier, varFunc, varFuncList}); // varFuncList->type id varFunc varFuncList
+            Rule r4 = new Rule(varFuncList, new List<IProduceable> { type, addTypeToList ,TokenList.Identifier, addIdToList, varFunc, varFuncList}); // varFuncList->type id varFunc varFuncList
             Rule r5 = new Rule(varFuncList); // varFuncList -> EPSILON
-            Rule r6 = new Rule(varFunc, new List<IProduceable> { addIdToList, varDecl, migrateVariableToList, makeVariable }); // varFunc-> varDecl
+            Rule r6 = new Rule(varFunc, new List<IProduceable> { varDecl, migrateVariableToList, makeVariable }); // varFunc-> varDecl
             Rule r7 = new Rule(varFunc, new List<IProduceable> { funcDef, closeTable }); // varFunc-> funcDef
             Rule r8 = new Rule(progBody, new List<IProduceable> { TokenList.Program, makeProgramTable, funcBody, closeTable, TokenList.SemiColon, funcList }); //progBody -> program funcBody ; funcList
-            Rule r9 = new Rule(funcList, new List<IProduceable> { type, addTypeToList, TokenList.Identifier, funcDef, closeTable, funcList}); //funcList -> type id funcDef funcList 
+            Rule r9 = new Rule(funcList, new List<IProduceable> { type, addTypeToList, TokenList.Identifier, addIdToList, funcDef, closeTable, funcList}); //funcList -> type id funcDef funcList 
             Rule r10 = new Rule(funcList); // funcList -> EPSILON
             Rule r11 = new Rule(funcDef, new List<IProduceable> { TokenList.OpenParanthesis, fParams, makeFuncTable, TokenList.CloseParanthesis, funcBody, TokenList.SemiColon}); //funcDef -> ( fParams ) funcBody ;
             Rule r12 = new Rule(funcBody, new List<IProduceable> { TokenList.OpenCurlyBracket, funcBodyList, TokenList.CloseCurlyBracket}); //funcBody -> { funcBodyList }

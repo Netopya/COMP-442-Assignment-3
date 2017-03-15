@@ -14,7 +14,7 @@ namespace COMP442_Assignment3.SymbolTables
 
         public FunctionEntry(SymbolTable parent, string name, string type) : base(parent, EntryKinds.function, name)
         {
-            child = new SymbolTable("Function: " + name);
+            child = new SymbolTable("Function Symbol Table: " + name);
             this.type = type;
         }
 
@@ -25,12 +25,22 @@ namespace COMP442_Assignment3.SymbolTables
 
         public override string getType()
         {
-            return type;
+            var parameters = child.GetEntries().Where(x => x.getKind() == EntryKinds.parameter);
+
+            if (parameters.Count() == 0)
+                return type;
+            else
+                return string.Format("{0} : {1}", type, string.Join(", ", parameters.Select(x => x.getType())));
         }
 
         public void AddParameters(IEnumerable<Variable> parameters)
         {
-            child.AddEntryRange(parameters.Select(x => new VarParamEntry(getParent(), x, EntryKinds.parameter)));
+            // Create a new entry for each parameter and
+            // they will add themselves to the current "child" symbol table
+            foreach (var parameter in parameters)
+            {
+                new VarParamEntry(child, parameter, EntryKinds.parameter);
+            }
         }
     }
 }

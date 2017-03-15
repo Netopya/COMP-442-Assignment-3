@@ -56,6 +56,11 @@ namespace COMP442_Assignment3.SymbolTables
                 getChild().printTable(tabs + 1, sb);
         }
 
+        public EntryKinds getKind()
+        {
+            return kind;
+        }
+
         protected SymbolTable getParent()
         {
             return parent;
