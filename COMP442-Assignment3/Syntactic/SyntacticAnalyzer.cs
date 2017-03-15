@@ -123,10 +123,10 @@ namespace COMP442_Assignment3.Syntactic
             Rule r15 = new Rule(funcBodyList, new List<IProduceable> { TokenList.Identifier, idtypeFuncBodyList }); //funcBodyList -> id idtypeFuncBodyList
             Rule r15a = new Rule(funcBodyList, new List<IProduceable> { statement, funcBodyList}); // funcBodyList -> statement funcBodyList
             Rule r16 = new Rule(funcBodyList); // funcBodyList -> EPSILON
-            Rule r17 = new Rule(idtypeFuncBodyList, new List<IProduceable> { TokenList.Identifier, varDecl, funcBodyList}); //idtypeFuncBodyList -> id varDecl funcBodyList
+            Rule r17 = new Rule(idtypeFuncBodyList, new List<IProduceable> { addTypeToList, TokenList.Identifier, addIdToList, varDecl, funcBodyList, migrateVariableToList, makeVariable}); //idtypeFuncBodyList -> id varDecl funcBodyList
             Rule r18 = new Rule(idtypeFuncBodyList, new List<IProduceable> { statement, funcBodyList}); //idtypeFuncBodyList -> statement funcBodyList
             Rule r19 = new Rule(idtypeFuncBodyList, new List<IProduceable> { assignStat, TokenList.SemiColon, funcBodyList}); //idtypeFuncBodyList -> assignStat ; funcBodyList
-            Rule r20 = new Rule(ntypeFuncBodyList, new List<IProduceable> { TokenList.Identifier, varDecl, funcBodyList}); // ntypeFuncBodyList -> id varDecl funcBodyList
+            Rule r20 = new Rule(ntypeFuncBodyList, new List<IProduceable> { addTypeToList, TokenList.Identifier, addIdToList, varDecl, migrateVariableToList, makeVariable, funcBodyList}); // ntypeFuncBodyList -> id varDecl funcBodyList
             Rule r21 = new Rule(varDecl, new List<IProduceable> { arraySizeList, TokenList.SemiColon }); //varDecl -> arraySizeList ;
             Rule r22 = new Rule(arraySizeList, new List<IProduceable> { arraySize, arraySizeList}); //arraySizeList -> arraySize arraySizeList 
             Rule r23 = new Rule(arraySizeList); // arraySizeList -> EPSILON
