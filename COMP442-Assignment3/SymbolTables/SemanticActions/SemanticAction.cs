@@ -12,7 +12,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
     public abstract class SemanticAction : IProduceable
     {
-        public abstract void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken);
+        public abstract List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken);
 
         public List<Token> getFirstSet()
         {

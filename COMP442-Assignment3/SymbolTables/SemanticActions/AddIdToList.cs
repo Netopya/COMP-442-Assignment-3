@@ -10,9 +10,11 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
     class AddIdToList : SemanticAction
     {
-        public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
             semanticRecordTable.Push(new SemanticRecord(RecordTypes.IdName, lastToken.getSemanticName()));
+
+            return new List<string>();
         }
 
         public override string getProductName()

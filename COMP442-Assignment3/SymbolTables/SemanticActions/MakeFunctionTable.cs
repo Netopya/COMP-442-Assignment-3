@@ -10,7 +10,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
     public class MakeFunctionTable : SemanticAction
     {
-        public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
             SymbolTable currentTable = symbolTable.Peek();
 
@@ -20,7 +20,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
 
             bool entryCreated = false;
             string funcName = string.Empty;
-
+            List<string> errors = new List<string>();
             while(!entryCreated)
             {
                 SemanticRecord topRecord = semanticRecordTable.Pop();
@@ -44,10 +44,12 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
                         break;
                     default:
                         // This should only fail if there is an error in the grammar.
-                        Console.WriteLine("Grammar error, parsed rule that placed unexpected character on semantic stack");
+                        errors.Add("Grammar error, parsed rule that placed unexpected character on semantic stack");
                         break;
                 }
             }
+
+            return errors;
         }
 
         public override string getProductName()

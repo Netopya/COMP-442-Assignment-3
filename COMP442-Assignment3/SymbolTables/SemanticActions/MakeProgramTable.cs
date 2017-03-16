@@ -13,13 +13,15 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
     public class MakeProgramTable : SemanticAction
     {
-        public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
             SymbolTable currentTable = symbolTable.Peek();
 
             Entry funcEntry = new FunctionEntry(currentTable, lastToken.getSemanticName(), string.Empty);
 
             symbolTable.Push(funcEntry.getChild());
+
+            return new List<string>();
         }
 
         public override string getProductName()

@@ -10,9 +10,11 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
     class MigrateVariableToList : SemanticAction
     {
-        public override void ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
+        public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
             Variable variable = new Variable();
+            List<string> errors = new List<string>();
+
             while(semanticRecordTable.Peek().recordType == RecordTypes.IdName 
                 || semanticRecordTable.Peek().recordType == RecordTypes.TypeName 
                 || semanticRecordTable.Peek().recordType == RecordTypes.Size)
@@ -33,10 +35,12 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
                         break;
                     default:
                         // This should only occur if the grammar is not valid
-                        Console.WriteLine("Grammar error, parsed rule that placed unexpected character on semantic stack");
+                        errors.Add("Grammar error, parsed rule that placed unexpected character on semantic stack");
                         break;
                 }
             }
+
+            return errors;
         }
 
         public override string getProductName()
