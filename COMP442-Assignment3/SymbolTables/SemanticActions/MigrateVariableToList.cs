@@ -29,7 +29,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
                         variable.SetName(topRecord.getValue());
                         break;
                     case RecordTypes.TypeName:
-                        variable.SetType(topRecord.getValue());
+                        variable.SetType(topRecord.getType());
                         SemanticRecord variableRecord = new SemanticRecord(variable);
                         semanticRecordTable.Push(variableRecord);
                         break;

@@ -23,6 +23,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
 
         string value;
         Variable variable;
+        ClassEntry className;
 
         public SemanticRecord(RecordTypes recordType, string value)
         {
@@ -36,6 +37,12 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
             this.recordType = RecordTypes.Variable;
         }
 
+        public SemanticRecord(ClassEntry className)
+        {
+            this.className = className;
+            this.recordType = RecordTypes.TypeName;
+        }
+
         public string getValue()
         {
             return value;
@@ -44,6 +51,11 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
         public Variable getVariable()
         {
             return variable;
+        }
+
+        public ClassEntry getType()
+        {
+            return className;
         }
     }
 

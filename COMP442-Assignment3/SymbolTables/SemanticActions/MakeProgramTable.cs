@@ -17,7 +17,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
         {
             SymbolTable currentTable = symbolTable.Peek();
 
-            Entry funcEntry = new FunctionEntry(currentTable, lastToken.getSemanticName(), string.Empty);
+            Entry funcEntry = new FunctionEntry(currentTable, lastToken.getSemanticName(), new ClassEntry(""));
 
             symbolTable.Push(funcEntry.getChild());
 

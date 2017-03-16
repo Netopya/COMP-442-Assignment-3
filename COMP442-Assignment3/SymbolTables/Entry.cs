@@ -27,7 +27,8 @@ namespace COMP442_Assignment3.SymbolTables
             this.parent = parent;
 
             // Establish a two-way link in the tree
-            parent.AddEntry(this);
+            if(parent != null)
+                parent.AddEntry(this);
 
             this.kind = kind;
             this.name = name;
@@ -59,6 +60,11 @@ namespace COMP442_Assignment3.SymbolTables
         public EntryKinds getKind()
         {
             return kind;
+        }
+
+        public string getName()
+        {
+            return name;
         }
 
         protected SymbolTable getParent()

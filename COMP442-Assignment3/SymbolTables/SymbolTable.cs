@@ -12,9 +12,10 @@ namespace COMP442_Assignment3.SymbolTables
         Entry parent;
         List<Entry> entries = new List<Entry>();
 
-        public SymbolTable(string name)
+        public SymbolTable(string name, Entry parent)
         {
             this.name = name;
+            this.parent = parent;
         }
 
         public void AddEntry(Entry entry)
@@ -46,6 +47,11 @@ namespace COMP442_Assignment3.SymbolTables
                 //sb.Append(new String('\t', tabs + 1));
                 entry.printTable(tabs, sb);
             }
+        }
+
+        public Entry getParent()
+        {
+            return parent;
         }
     }
 }

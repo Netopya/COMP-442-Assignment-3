@@ -9,7 +9,7 @@ namespace COMP442_Assignment3.SymbolTables
     public class Variable
     {
         // SHOULD BE LINK TO CLASS
-        string type;
+        ClassEntry type;
 
         string name;
 
@@ -25,7 +25,7 @@ namespace COMP442_Assignment3.SymbolTables
             return name;
         }
 
-        public void SetType(string type)
+        public void SetType(ClassEntry type)
         {
             this.type = type;
         }
@@ -39,7 +39,7 @@ namespace COMP442_Assignment3.SymbolTables
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(type);
+            sb.Append(type.getName());
             foreach(int dimension in dimensions)
             {
                 sb.AppendFormat("[{0}]", dimension);

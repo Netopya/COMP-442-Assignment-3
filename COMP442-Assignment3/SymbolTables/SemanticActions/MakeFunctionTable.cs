@@ -34,7 +34,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
                         funcName = topRecord.getValue();
                         break;
                     case RecordTypes.TypeName:
-                        FunctionEntry funcEntry = new FunctionEntry(currentTable, funcName, topRecord.getValue());
+                        FunctionEntry funcEntry = new FunctionEntry(currentTable, funcName, topRecord.getType());
                         funcEntry.AddParameters(foundParameters);
 
                         symbolTable.Push(funcEntry.getChild());

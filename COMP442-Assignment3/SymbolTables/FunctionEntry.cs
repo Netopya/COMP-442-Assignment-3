@@ -10,11 +10,11 @@ namespace COMP442_Assignment3.SymbolTables
     public class FunctionEntry : Entry
     {
         SymbolTable child;
-        string type;
+        ClassEntry type;
 
-        public FunctionEntry(SymbolTable parent, string name, string type) : base(parent, EntryKinds.function, name)
+        public FunctionEntry(SymbolTable parent, string name, ClassEntry type) : base(parent, EntryKinds.function, name)
         {
-            child = new SymbolTable("Function Symbol Table: " + name);
+            child = new SymbolTable("Function Symbol Table: " + name, this);
             this.type = type;
         }
 
@@ -28,9 +28,9 @@ namespace COMP442_Assignment3.SymbolTables
             var parameters = child.GetEntries().Where(x => x.getKind() == EntryKinds.parameter);
 
             if (parameters.Count() == 0)
-                return type;
+                return type.getName();
             else
-                return string.Format("{0} : {1}", type, string.Join(", ", parameters.Select(x => x.getType())));
+                return string.Format("{0} : {1}", type.getName(), string.Join(", ", parameters.Select(x => x.getType())));
         }
 
         public void AddParameters(IEnumerable<Variable> parameters)

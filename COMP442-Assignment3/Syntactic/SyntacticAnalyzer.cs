@@ -273,8 +273,9 @@ namespace COMP442_Assignment3.Syntactic
             IToken lastTerminal = null;
             Stack<SemanticRecord> semanticStack = new Stack<SemanticRecord>();
             Stack<SymbolTable> symbolTableStack = new Stack<SymbolTable>();
-            SymbolTable global = new SymbolTable("Global");
+            SymbolTable global = new SymbolTable("Global", null);
             symbolTableStack.Push(global);
+            List<string> semanticErrors = new List<string>();
 
             // The table driven algorithm as seen in class slides
             while(parseStack.Peek() != TokenList.EndOfProgram)
@@ -300,7 +301,7 @@ namespace COMP442_Assignment3.Syntactic
                 {
                     parseStack.Pop();
                     SemanticAction action = (SemanticAction)top;
-                    action.ExecuteSemanticAction(semanticStack, symbolTableStack, lastTerminal);
+                    semanticErrors.AddRange(action.ExecuteSemanticAction(semanticStack, symbolTableStack, lastTerminal));
 
                 }
                 else
@@ -331,7 +332,10 @@ namespace COMP442_Assignment3.Syntactic
                 results.Derivation.Add(new List<IProduceable>(parseStack));
             }
 
-            Console.Write(global.printTable());
+            Console.WriteLine(global.printTable());
+            Console.WriteLine("Errors:");
+            Console.WriteLine(string.Join(Environment.NewLine, semanticErrors));
+
 
             return results;
         }
