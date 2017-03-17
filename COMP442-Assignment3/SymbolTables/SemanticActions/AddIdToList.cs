@@ -12,9 +12,27 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
-            semanticRecordTable.Push(new SemanticRecord(RecordTypes.IdName, lastToken.getSemanticName()));
+            List<string> errors = new List<string>();
+            string idName = lastToken.getSemanticName();
 
-            return new List<string>();
+            foreach (SymbolTable table in symbolTable)
+            {
+                foreach(Entry entry in table.GetEntries())
+                {
+                    if (entry.getName() == idName)
+                    {
+                        errors.Add(string.Format("Identifier {0} at line {1} has already been declared", idName, lastToken.getLine()));
+                        break;
+                    }
+                }
+
+                if (errors.Any())
+                    break;
+            }
+
+            semanticRecordTable.Push(new SemanticRecord(RecordTypes.IdName, idName));
+
+            return errors;
         }
 
         public override string getProductName()
