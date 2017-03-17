@@ -69,10 +69,19 @@ namespace COMP442_Assignment3
             outputToFile("outputSyntacticDerivation.txt", syntacticDerivation);
             outputToFile("outputSyntacticErrors.txt", syntacticErrors);
 
+            string symbolTableOutput = result.SymbolTable.printTable();
+            string semanticErrors = string.Join(Environment.NewLine, result.SemanticErrors);
+
+            txtSymbolTable.Text = symbolTableOutput;
+            txtSymbolTableErrors.Text = semanticErrors;
+
+            outputToFile("outputSymbolTable.txt", symbolTableOutput);
+            outputToFile("outputSymbolTableErrors.txt", semanticErrors);
+
             // Switch to the syntactic output tab
             if (result.Derivation.Any())
             {
-                tabControl1.SelectTab(2);
+                tabControl1.SelectTab(3);
             }
 
             // Update the status label

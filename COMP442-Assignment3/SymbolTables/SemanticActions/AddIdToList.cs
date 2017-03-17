@@ -30,6 +30,15 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
                     break;
             }
 
+            foreach(SemanticRecord record in semanticRecordTable)
+            {
+                if(record.recordType == RecordTypes.Variable && record.getVariable().GetName() == idName)
+                {
+                    errors.Add(string.Format("Identifier {0} at line {1} has already been declared", idName, lastToken.getLine()));
+                    break;
+                }
+            }
+
             semanticRecordTable.Push(new SemanticRecord(RecordTypes.IdName, idName));
 
             return errors;

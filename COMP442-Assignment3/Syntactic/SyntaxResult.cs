@@ -1,4 +1,5 @@
-﻿using System;
+﻿using COMP442_Assignment3.SymbolTables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,16 @@ namespace COMP442_Assignment3.Syntactic
     {
         public List<List<IProduceable>> Derivation;
         public List<string> Errors;
+        public SymbolTable SymbolTable;
+        public List<string> SemanticErrors;
 
-        public SyntaxResult()
+        public SyntaxResult(SymbolTable symbolTable)
         {
             Derivation = new List<List<IProduceable>>(); // The states of the parse stack during the parse
             Errors = new List<string>();
+            SemanticErrors = new List<string>();
+
+            this.SymbolTable = symbolTable;
         }
     }
 }

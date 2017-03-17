@@ -252,7 +252,9 @@ namespace COMP442_Assignment3.Syntactic
         // of tokens from the lexical analyzer, derives the grammar and handles errors
         public SyntaxResult analyzeSyntax(List<IToken> lexical)
         {
-            SyntaxResult results = new SyntaxResult();
+            SymbolTable global = new SymbolTable("Global", null);
+
+            SyntaxResult results = new SyntaxResult(global);
 
             // Remove all errors and comments from the lexical analyzer
             lexical.RemoveAll(x => x.isError() || x.getToken() == TokenList.BlockComment || x.getToken() == TokenList.LineComment);
@@ -273,9 +275,8 @@ namespace COMP442_Assignment3.Syntactic
             IToken lastTerminal = null;
             Stack<SemanticRecord> semanticStack = new Stack<SemanticRecord>();
             Stack<SymbolTable> symbolTableStack = new Stack<SymbolTable>();
-            SymbolTable global = new SymbolTable("Global", null);
+            
             symbolTableStack.Push(global);
-            List<string> semanticErrors = new List<string>();
 
             // The table driven algorithm as seen in class slides
             while(parseStack.Peek() != TokenList.EndOfProgram)
@@ -301,7 +302,7 @@ namespace COMP442_Assignment3.Syntactic
                 {
                     parseStack.Pop();
                     SemanticAction action = (SemanticAction)top;
-                    semanticErrors.AddRange(action.ExecuteSemanticAction(semanticStack, symbolTableStack, lastTerminal));
+                    results.SemanticErrors.AddRange(action.ExecuteSemanticAction(semanticStack, symbolTableStack, lastTerminal));
 
                 }
                 else
@@ -331,11 +332,6 @@ namespace COMP442_Assignment3.Syntactic
                 // Add the current state of the stack to the derivation list
                 results.Derivation.Add(new List<IProduceable>(parseStack));
             }
-
-            Console.WriteLine(global.printTable());
-            Console.WriteLine("Errors:");
-            Console.WriteLine(string.Join(Environment.NewLine, semanticErrors));
-
 
             return results;
         }
