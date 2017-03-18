@@ -27,7 +27,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
             {
                 typeClass = floatClass;
             }
-            else if(symbolTable.Peek().getParent() != null && symbolTable.Peek().getParent().getName() == searchType)
+            else if(symbolTable.Any() && symbolTable.Peek().getParent() != null && symbolTable.Peek().getParent().getName() == searchType)
             {
                 errors.Add(string.Format("{0}'s member variable or function parameter cannot refer to its own class at line {1}", searchType, lastToken.getLine()));
                 typeClass = symbolTable.Peek().getParent() as ClassEntry;

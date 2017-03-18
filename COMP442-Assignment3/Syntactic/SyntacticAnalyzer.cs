@@ -303,7 +303,6 @@ namespace COMP442_Assignment3.Syntactic
                     parseStack.Pop();
                     SemanticAction action = (SemanticAction)top;
                     results.SemanticErrors.AddRange(action.ExecuteSemanticAction(semanticStack, symbolTableStack, lastTerminal));
-
                 }
                 else
                 {
