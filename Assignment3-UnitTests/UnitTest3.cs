@@ -155,9 +155,55 @@ namespace Assignment3_UnitTests
             Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: program, kind: function Function Symbol Table: program name: myVar, kind: variable, type: MyClass1", formatSymbolTable(results.SymbolTable));
             Assert.IsFalse(results.SemanticErrors.Any());
 
-            // TODO: Test arrays
-            // TODO: Test same names in different scopes
-            // TODO: Test incorrect cases
+            // Test arrays
+            tokens = lexicalAnalyzer.Tokenize("program { int myVar[1][3]; };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myVar, kind: variable, type: int[1][3]", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test class array
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { }; program { MyClass1 myVar[1][3]; };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: program, kind: function Function Symbol Table: program name: myVar, kind: variable, type: MyClass1[1][3]", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test duplicate variable names in different scopes
+            tokens = lexicalAnalyzer.Tokenize("program { int myVar; }; int myFunc() { int myVar; };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myVar, kind: variable, type: int name: myFunc, kind: function, type: int Function Symbol Table: myFunc name: myVar, kind: variable, type: int", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test duplicate names in same function
+            tokens = lexicalAnalyzer.Tokenize("program { int myVar; float myVar; };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myVar, kind: variable, type: int name: myVar, kind: variable, type: float", formatSymbolTable(results.SymbolTable));
+            Assert.AreEqual(1, results.SemanticErrors.Count);
+            Assert.AreEqual("Identifier myVar at line 1 has already been declared", results.SemanticErrors[0]);
+
+            // Test duplicate names in same scope
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { int myVar; int myFunc() { float myVar; }; }; program { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: myVar, kind: variable, type: int name: myFunc, kind: function, type: int Function Symbol Table: myFunc name: myVar, kind: variable, type: float name: program, kind: function Function Symbol Table: program", formatSymbolTable(results.SymbolTable));
+            Assert.AreEqual(1, results.SemanticErrors.Count);
+            Assert.AreEqual("Identifier myVar at line 1 has already been declared", results.SemanticErrors[0]);
+
+            // Test for loops
+            tokens = lexicalAnalyzer.Tokenize("program { for(int i = 0; i < 10; i = i + 1); };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: i, kind: variable, type: int", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+        }
+
+        [TestMethod]
+        public void TestParamters()
+        {
+
         }
     }
 }
