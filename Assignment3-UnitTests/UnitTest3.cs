@@ -108,6 +108,13 @@ namespace Assignment3_UnitTests
             Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: func, kind: function, type: MyClass1 Function Symbol Table: func name: program, kind: function Function Symbol Table: program", formatSymbolTable(results.SymbolTable));
             Assert.AreEqual(1, results.SemanticErrors.Count);
             Assert.AreEqual("MyClass1's member variable or function parameter cannot refer to its own class at line 1", results.SemanticErrors[0]);
+
+            // Test duplicate function name in different scope
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { int func() { }; }; program { }; int func() { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: func, kind: function, type: int Function Symbol Table: func name: program, kind: function Function Symbol Table: program name: func, kind: function, type: int Function Symbol Table: func", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
         }
 
         [TestMethod]
