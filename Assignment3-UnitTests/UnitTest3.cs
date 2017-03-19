@@ -201,9 +201,95 @@ namespace Assignment3_UnitTests
         }
 
         [TestMethod]
-        public void TestParamters()
+        public void TestParameters()
         {
+            // Test basic parameters
+            var tokens = lexicalAnalyzer.Tokenize("program { }; int myFunc(int param1) { };");
+            var results = syntacticAnalyzer.analyzeSyntax(tokens);
 
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : int Function Symbol Table: myFunc name: param1, kind: parameter, type: int", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test multiple parameters
+            tokens = lexicalAnalyzer.Tokenize("program { }; int myFunc(int param1, float param2) { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : int, float Function Symbol Table: myFunc name: param1, kind: parameter, type: int name: param2, kind: parameter, type: float", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test parameters with class type
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { }; program { }; int myFunc(MyClass1 param1, float param2) { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : MyClass1, float Function Symbol Table: myFunc name: param1, kind: parameter, type: MyClass1 name: param2, kind: parameter, type: float", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test function parameters in class
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { int myFunc(int param1, float param2) { }; }; program { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: myFunc, kind: function, type: int : int, float Function Symbol Table: myFunc name: param1, kind: parameter, type: int name: param2, kind: parameter, type: float name: program, kind: function Function Symbol Table: program", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test function parameters with function variables
+            tokens = lexicalAnalyzer.Tokenize("program { }; int myFunc(int param1) { float myVar; };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : int Function Symbol Table: myFunc name: param1, kind: parameter, type: int name: myVar, kind: variable, type: float", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test function with array parameters
+            tokens = lexicalAnalyzer.Tokenize("program { }; int myFunc(int param1[1][2]) { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : int[1][2] Function Symbol Table: myFunc name: param1, kind: parameter, type: int[1][2]", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test function with multiple array parameters
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { }; program { }; int myFunc(int param1[1][2], MyClass1 param2[100]) { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : int[1][2], MyClass1[100] Function Symbol Table: myFunc name: param1, kind: parameter, type: int[1][2] name: param2, kind: parameter, type: MyClass1[100]", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test duplicate parameter names
+            tokens = lexicalAnalyzer.Tokenize("program { }; int myFunc(int param1, float param1) { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : int, float Function Symbol Table: myFunc name: param1, kind: parameter, type: int name: param1, kind: parameter, type: float", formatSymbolTable(results.SymbolTable));
+            Assert.AreEqual(1, results.SemanticErrors.Count);
+            Assert.AreEqual("Identifier param1 at line 1 has already been declared", results.SemanticErrors[0]);
+
+            // Test duplicate names with inner variable
+            tokens = lexicalAnalyzer.Tokenize("program { }; int myFunc(int param1) { float param1; };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : int Function Symbol Table: myFunc name: param1, kind: parameter, type: int name: param1, kind: variable, type: float", formatSymbolTable(results.SymbolTable));
+            Assert.AreEqual(1, results.SemanticErrors.Count);
+            Assert.AreEqual("Identifier param1 at line 1 has already been declared", results.SemanticErrors[0]);
+
+            // Test duplicate names with member variable
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { float param1; int myFunc(int param1) {}; }; program { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: param1, kind: variable, type: float name: myFunc, kind: function, type: int : int Function Symbol Table: myFunc name: param1, kind: parameter, type: int name: program, kind: function Function Symbol Table: program", formatSymbolTable(results.SymbolTable));
+            Assert.AreEqual(1, results.SemanticErrors.Count);
+            Assert.AreEqual("Identifier param1 at line 1 has already been declared", results.SemanticErrors[0]);
+
+            // Test recursive class dependency
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { int myFunc(MyClass1 param1) {}; }; program { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: myFunc, kind: function, type: int : MyClass1 Function Symbol Table: myFunc name: param1, kind: parameter, type: MyClass1 name: program, kind: function Function Symbol Table: program", formatSymbolTable(results.SymbolTable));
+            Assert.AreEqual(1, results.SemanticErrors.Count);
+            Assert.AreEqual("MyClass1's member variable or function parameter cannot refer to its own class at line 1", results.SemanticErrors[0]);
+
+            // Test duplicate names in different scopes
+            tokens = lexicalAnalyzer.Tokenize("program { }; int myFunc(int param1) { }; int myFunc2(int param1) { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: program, kind: function Function Symbol Table: program name: myFunc, kind: function, type: int : int Function Symbol Table: myFunc name: param1, kind: parameter, type: int name: myFunc2, kind: function, type: int : int Function Symbol Table: myFunc2 name: param1, kind: parameter, type: int", formatSymbolTable(results.SymbolTable));
+            Assert.IsFalse(results.SemanticErrors.Any());
         }
     }
 }
