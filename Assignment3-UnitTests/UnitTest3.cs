@@ -7,6 +7,11 @@ using COMP442_Assignment3.SymbolTables;
 
 namespace Assignment3_UnitTests
 {
+    /*
+       A set of unit tests to test the symbol table generator
+
+       For COMP 442 Assignment 3, Michael Bilinsky 26992358
+    */
     [TestClass]
     public class UnitTest3
     {

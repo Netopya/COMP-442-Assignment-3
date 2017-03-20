@@ -7,13 +7,17 @@ using COMP442_Assignment3.SymbolTables.SemanticActions;
 
 namespace COMP442_Assignment3.SymbolTables
 {
+    // An entry in a symbol table representing a function
     public class FunctionEntry : Entry
     {
         SymbolTable child;
+
+        // The type of this function points to a declared class (including int or float)
         ClassEntry type;
 
         public FunctionEntry(SymbolTable parent, string name, ClassEntry type) : base(parent, EntryKinds.function, name)
         {
+            // Create a symbol table for the function's own scope
             child = new SymbolTable("Function Symbol Table: " + name, this);
             this.type = type;
         }
@@ -27,6 +31,7 @@ namespace COMP442_Assignment3.SymbolTables
         {
             var parameters = child.GetEntries().Where(x => x.getKind() == EntryKinds.parameter);
 
+            // List the function's parameters in the type if there are any
             if (parameters.Count() == 0)
                 return type.getName();
             else

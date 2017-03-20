@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace COMP442_Assignment3.SymbolTables
 {
+    // The different kinds of symbol table entries
     public enum EntryKinds
     {
         function,
@@ -14,11 +15,14 @@ namespace COMP442_Assignment3.SymbolTables
         variable
     };
 
+    // An entry in the symbol table
     public abstract class Entry
     {
         bool declared;
 
+        // The symbol table holding this entry
         SymbolTable parent;
+
         EntryKinds kind;
         string name;
 
@@ -34,10 +38,12 @@ namespace COMP442_Assignment3.SymbolTables
             this.name = name;
         }
 
+        // Get a symbol table for the inner scope of this entry
         public abstract SymbolTable getChild();
 
         public abstract string getType();
 
+        // Create a readable string
         public void printTable(int tabs, StringBuilder sb)
         {
             sb.Append(new String('\t', tabs));

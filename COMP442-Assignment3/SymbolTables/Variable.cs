@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace COMP442_Assignment3.SymbolTables
 {
+    // A class to hold the structure of a variable (name, type, and array size description)
     public class Variable
     {
-        // SHOULD BE LINK TO CLASS
+        // The type of this variable points to a declared class (including int or float)
         ClassEntry type;
 
         string name;
 
+        // A list of sizes for each dimension in the array
         LinkedList<int> dimensions = new LinkedList<int>();
 
         public void SetName(string name)
@@ -30,11 +32,13 @@ namespace COMP442_Assignment3.SymbolTables
             this.type = type;
         }
 
+        // Add a dimension to the front
         public void AddDimension(int dimension)
         {
             dimensions.AddFirst(dimension);
         }
 
+        // Create a reable string
         public string formatString()
         {
             StringBuilder sb = new StringBuilder();

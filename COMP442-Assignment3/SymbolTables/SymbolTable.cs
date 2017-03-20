@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace COMP442_Assignment3.SymbolTables
 {
+    /*
+        Represents a symbol table in the tree of symbol
+        tables for the program
+    */
     public class SymbolTable
     {
         string name;
+
+        // A possible parent entry that links to this symbol table
         Entry parent;
+
+        // The list of entries at this scope
         List<Entry> entries = new List<Entry>();
 
         public SymbolTable(string name, Entry parent)
@@ -44,7 +52,6 @@ namespace COMP442_Assignment3.SymbolTables
 
             foreach(var entry in entries)
             {
-                //sb.Append(new String('\t', tabs + 1));
                 entry.printTable(tabs, sb);
             }
         }

@@ -8,12 +8,14 @@ using COMP442_Assignment3.SymbolTables.SemanticRecords;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
+    // Create an entry for a variable declaration
     class MakeVariableTable : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
         {
             SymbolTable currentTable = symbolTable.Peek();
 
+            // Get the last created variable
             SemanticRecord variableRecord = semanticRecordTable.Pop();
 
             Entry variableEntry = new VarParamEntry(currentTable, variableRecord.getVariable(), EntryKinds.variable);

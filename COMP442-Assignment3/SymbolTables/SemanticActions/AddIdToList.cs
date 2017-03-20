@@ -8,6 +8,9 @@ using COMP442_Assignment3.SymbolTables.SemanticRecords;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
+    /*
+        When an Id is created, add it to the semantic stack 
+    */
     class AddIdToList : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
@@ -15,6 +18,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
             List<string> errors = new List<string>();
             string idName = lastToken.getSemanticName();
 
+            // Check parent scopes to ensure that the id has not already been declared
             foreach (SymbolTable table in symbolTable)
             {
                 foreach(Entry entry in table.GetEntries())
@@ -30,6 +34,8 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
                     break;
             }
 
+            // Ensure that we don't already have the id on the semantic stack
+            // waiting to be consumed
             foreach(SemanticRecord record in semanticRecordTable)
             {
                 if(record.recordType == RecordTypes.Variable && record.getVariable().GetName() == idName)
@@ -39,6 +45,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
                 }
             }
 
+            // Add the Id to the semantic stack
             semanticRecordTable.Push(new SemanticRecord(RecordTypes.IdName, idName));
 
             return errors;

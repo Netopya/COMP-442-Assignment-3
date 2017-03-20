@@ -8,6 +8,7 @@ using COMP442_Assignment3.SymbolTables.SemanticRecords;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
+    // Add an array size definition to the stack
     class AddSizeToList : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)

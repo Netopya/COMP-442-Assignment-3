@@ -8,8 +8,11 @@ using COMP442_Assignment3.SymbolTables.SemanticRecords;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
+    // Add a type specification to the semantic stack
+    // along with a reference to the type's definition
     public class AddTypeToList : SemanticAction
     {
+        // Predefined class entries for int and float types
         public static ClassEntry intClass = new ClassEntry("int");
         public static ClassEntry floatClass = new ClassEntry("float");
 
@@ -19,6 +22,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
             List<string> errors = new List<string>();
             string searchType = lastToken.getSemanticName();
 
+            // Check if the type is of int or float
             if (lastToken.getToken() == Tokens.TokenList.IntRes)
             {
                 typeClass = intClass;
@@ -27,6 +31,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
             {
                 typeClass = floatClass;
             }
+            // Check if we are recursively using a type defined in the immediate parent
             else if(symbolTable.Any() && symbolTable.Peek().getParent() != null && symbolTable.Peek().getParent().getName() == searchType)
             {
                 errors.Add(string.Format("{0}'s member variable or function parameter cannot refer to its own class at line {1}", searchType, lastToken.getLine()));
@@ -34,8 +39,10 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
             }
             else
             {
+                // Find the type being referenced in the parent scopes
                 foreach (SymbolTable table in symbolTable)
                 {
+                    // Look through this table's entry list for a type
                     typeClass = table.GetEntries().FirstOrDefault(x => x.getKind() == EntryKinds.classKind && x.getName() == searchType) as ClassEntry;
 
                     if (typeClass != null)

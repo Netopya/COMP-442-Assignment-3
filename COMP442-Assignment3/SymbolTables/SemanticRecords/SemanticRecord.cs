@@ -14,6 +14,8 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
         Variable
     }
 
+    // A semantic record stores information on a semantic stack
+    // for use my semantic actions
     public class SemanticRecord
     {
         public RecordTypes recordType
@@ -21,6 +23,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticRecords
             get; set;
         }
 
+        // Different types of information that the record can store
         string value;
         Variable variable;
         ClassEntry className;

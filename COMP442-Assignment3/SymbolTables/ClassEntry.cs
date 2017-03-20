@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace COMP442_Assignment3.SymbolTables
 {
+    // An entry in a symbol table representing a class
     public class ClassEntry : Entry
     {
         SymbolTable child;
 
         public ClassEntry(string name, SymbolTable parent) : base(parent, EntryKinds.classKind, name)
         {
+            // Create a symbol table for the scope of this class
             child = new SymbolTable("Class Symbol Table: " + name, this);
         }
 

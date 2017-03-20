@@ -10,8 +10,13 @@ using COMP442_Assignment3.Lexical;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
+    /*
+        A semantic action can be placed on the parse stack.
+        When it is encountered its ExecuteSemanticAction will be called
+    */
     public abstract class SemanticAction : IProduceable
     {
+        // This funcion is executed when the symbol is consumed
         public abstract List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken);
 
         public List<Token> getFirstSet()
@@ -20,6 +25,7 @@ namespace COMP442_Assignment3.SymbolTables.SemanticActions
             return new List<Token> { TokenList.Epsilon };
         }
 
+        // Follow sets are not defined for non-terminal symbol
         public List<Token> getFollowSet()
         {
             throw new NotImplementedException();

@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
+    /*
+        An entry in a symbol table that could be either
+        a local/member variable or function parameter
+    */
     class VarParamEntry : Entry
     {
+        // The variable this entry represents
         Variable variable;
 
         public VarParamEntry(SymbolTable parent, Variable variable, EntryKinds kind) : base(parent, kind, variable.GetName())

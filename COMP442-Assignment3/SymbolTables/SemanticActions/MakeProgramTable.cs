@@ -11,6 +11,7 @@ using COMP442_Assignment3.Lexical;
 
 namespace COMP442_Assignment3.SymbolTables.SemanticActions
 {
+    // Create the entry for the main program function
     public class MakeProgramTable : SemanticAction
     {
         public override List<string> ExecuteSemanticAction(Stack<SemanticRecord> semanticRecordTable, Stack<SymbolTable> symbolTable, IToken lastToken)
