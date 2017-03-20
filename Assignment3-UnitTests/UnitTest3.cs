@@ -49,6 +49,14 @@ namespace Assignment3_UnitTests
 
             Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: program, kind: function Function Symbol Table: program", formatSymbolTable(results.SymbolTable));
             Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test duplicate class name
+            tokens = lexicalAnalyzer.Tokenize("class MyClass1 { }; class MyClass1 { }; program { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: program, kind: function Function Symbol Table: program", formatSymbolTable(results.SymbolTable));
+            Assert.AreEqual(1, results.SemanticErrors.Count);
+            Assert.AreEqual("Identifier MyClass1 at line 1 has already been declared", results.SemanticErrors[0]);
         }
 
         [TestMethod]
@@ -120,6 +128,14 @@ namespace Assignment3_UnitTests
 
             Assert.AreEqual("Global name: MyClass1, kind: classKind Class Symbol Table: MyClass1 name: func, kind: function, type: int Function Symbol Table: func name: program, kind: function Function Symbol Table: program name: func, kind: function, type: int Function Symbol Table: func", formatSymbolTable(results.SymbolTable));
             Assert.IsFalse(results.SemanticErrors.Any());
+
+            // Test duplicate name with class
+            tokens = lexicalAnalyzer.Tokenize("class classyFunc { }; program { }; int classyFunc() { };");
+            results = syntacticAnalyzer.analyzeSyntax(tokens);
+
+            Assert.AreEqual("Global name: classyFunc, kind: classKind Class Symbol Table: classyFunc name: program, kind: function Function Symbol Table: program name: classyFunc, kind: function, type: int Function Symbol Table: classyFunc", formatSymbolTable(results.SymbolTable));
+            Assert.AreEqual(1, results.SemanticErrors.Count);
+            Assert.AreEqual("Identifier classyFunc at line 1 has already been declared", results.SemanticErrors[0]);
         }
 
         [TestMethod]
